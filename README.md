@@ -16,6 +16,7 @@ Career Orbit is a career-focused platform designed to help students and professi
 - **Backend / Database**: (Planned)  
 
 ## 📂 Project Structure
+```bash
 career_orbit/
 ├── app/ # Next.js App Router pages
 ├── components/ # Reusable UI components (shadcn)
@@ -23,12 +24,14 @@ career_orbit/
 ├── public/ # Static assets
 ├── styles/ # Global styles
 └── README.md
+```
 
 ## ⚡️ Getting Started
 1. Clone the repository:  
    ```bash
    git clone https://github.com/<your-username>/career_orbit.git
    cd career_orbit
+   ```
 2. Install dependencies:
 npm install --legacy-peer-deps
 3. Run the development server:
