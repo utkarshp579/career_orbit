@@ -36,11 +36,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${inter.className}`}
-        >
+        <body className={`${inter.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -49,7 +51,7 @@ export default function RootLayout({ children }) {
           >
             {/* header */}
             <Header />
-            <main className="min-h-screen">{children}</main> 
+            <main className="min-h-screen">{children}</main>
 
             <footer className="bg-muted/50 py-12">
               <div className="container mx-auto px-4 text-center text-gray-200">
