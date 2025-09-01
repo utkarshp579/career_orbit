@@ -12,7 +12,9 @@ import "./globals.css";
   //   SignedIn,
   //   SignedOut,
   //   UserButton,
-  } from "@clerk/nextjs";
+} from "@clerk/nextjs";
+  
+import { dark } from "@clerk/themes"; // for auth theme
 
 import Header from "@/components/Header";
 
