@@ -6,9 +6,9 @@ import Link from "next/link";
 
 
 const HeroSection = () => {
-  const imageRef  = useRef(null);
+  const imageRef  = useRef(null); // imageref is pointing to ref to hero-image, further wwe also want it not change on little scrolling. 
 
-  useEffect(() => {
+  useEffect(() => { // we want to rerender when scroll cross 100px , everytime.
     const imageElement = imageRef.current;
 
     const handleScroll = () => {
