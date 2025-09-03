@@ -17,6 +17,7 @@ import "./globals.css";
 import { dark } from "@clerk/themes"; // for auth theme
 
 import Header from "@/components/Header";
+import { Heart } from "lucide-react";
 
 const inter = Inter({
   subsets: ["latin"]
@@ -57,7 +58,11 @@ export default function RootLayout({ children }) {
 
             <footer className="bg-muted/50 py-12">
               <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>Made with Love By @Utkarsh</p>
+                <p className="text-gray-200 text-center">
+                  Made with{" "}
+                  <Heart className="inline w-4 h-4 text-red-500 fill-red-500" />{" "}
+                  by @Utkarsh
+                </p>
               </div>
             </footer>
           </ThemeProvider>
