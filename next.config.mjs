@@ -11,3 +11,10 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+
+// about different kind of Routes in next.js
+// [] dynamic route 
+//() farzi route to group
+//[...adalda] catch all route of dyanamic
+// _sfkflakdm  ignored  completely subfolder also
