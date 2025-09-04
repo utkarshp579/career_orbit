@@ -1,1 +1,2 @@
 add darkmode &  button using shadcn UI 
+Add role-based protection (e.g., admins only).
