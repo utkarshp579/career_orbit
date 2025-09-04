@@ -1,7 +1,9 @@
+//What this file is: The root layout for the App Router. Wraps all pages and components.  
+// When it renders: For every route in your app (it’s global).
 import { Inter } from "next/font/google";
 import "./globals.css";
 // Using Dark Theme from shadCn UI
-  import { ThemeProvider } from "@/components/theme-provider";
+  import { ThemeProvider } from "@/components/theme-provider"; // shadcn/ui ThemeProvider.
 
 // Using Clerk
   // import { type metadata } from "next";
@@ -12,13 +14,14 @@ import "./globals.css";
   //   SignedIn,
   //   SignedOut,
   //   UserButton,
-} from "@clerk/nextjs";
+} from "@clerk/nextjs"; // ClerkProvider (with dark theme).
   
 import { dark } from "@clerk/themes"; // for auth theme
 
-import Header from "@/components/Header";
+import Header from "@/components/Header"; // top navigation
 import { Heart } from "lucide-react";
 
+// Loads Inter font.
 const inter = Inter({
   subsets: ["latin"]
 });
@@ -32,21 +35,24 @@ const inter = Inter({
 //   subsets: ["latin"],
 // });
 
+// Metadata exported for SEO and browser title.
 export const metadata = {
   title: "Career Orbit - AI Career App",
   description: "Built With Love",
 };
 
 export default function RootLayout({ children }) {
+  // children = whatever page/route is being rendered.
   return (
-    <ClerkProvider
+    <ClerkProvider // Wraps everything in ClerkProvider → required for Clerk auth.
       appearance={{
         baseTheme: dark,
       }}
     >
+      {/* suppressHydrationWarning avoids React mismatch warnings when theme changes. */}
       <html lang="en" suppressHydrationWarning>
         <body className={`${inter.className}`}>
-          <ThemeProvider
+          <ThemeProvider // from Docs of Shadcn UI
             attribute="class"
             defaultTheme="dark"
             enableSystem
@@ -71,3 +77,11 @@ export default function RootLayout({ children }) {
     </ClerkProvider>
   );
 }
+
+
+// Q: Why wrap with ClerkProvider at root?
+// So auth context is available everywhere (sign-in, user profile, etc.).
+// Q: Do I need to use suppressHydrationWarning?
+  // Yes, when themes/fonts differ between server and client render.
+// Q: Is children special?
+  // Yes. Next.js automatically passes the page being rendered into RootLayout as children.

@@ -1,5 +1,8 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+// What this file is: A React component that shows a custom “Page Not Found” screen.
+// it renders when a URL has no match or when a route calls notFound().
+
+import Link from "next/link"; //client-side navigation. Next.js’ Link component provides fast, client-side navigation and prefetching.
+import { Button } from "@/components/ui/button"; //a styled button (shadcn/ui convention).
 
 export default function NotFound() {
   return (
@@ -10,9 +13,12 @@ export default function NotFound() {
         Oops! The page you&apos;re looking for doesn&apos;t exist or has been
         moved.
       </p>
-      <Link href="/">
-        <Button>Return Home</Button>
-      </Link>
+      {/* <Link href="/">
+        <Button>Return Home</Button> */}
+        <Button asChild>
+          <Link href="/">Return Home</Link>
+        </Button>
+      {/* </Link> */}
     </div>
   );
 }

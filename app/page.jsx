@@ -1,3 +1,10 @@
+// about file :- This file defines the main landing page of the app. It serves as the index route (/) in a Next.js project.
+//  Each section is built with reusable UI components, structured data, and Tailwind for layout/styling.
+
+// When this page is used
+// Runs automatically when a user visits the root URL (/).
+// Acts as the entry point for showcasing features, stats, testimonials, FAQs, and a call‑to‑action(CTA).
+
 import HeroSection from "@/components/hero";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -7,8 +14,8 @@ import { features } from "@/data/features";
 import { howItWorks } from "@/data/howItWorks";
 import { testimonial } from "@/data/testimonial";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";  // Next.js optimized <img /> replacement.      // for externaal image , we also need to configure next.js
+import Link from "next/link"; // Next.js <a /> replacement for client-side navigation.
 
 export default function Home() {
   return (

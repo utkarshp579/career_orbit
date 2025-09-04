@@ -1,3 +1,9 @@
+// The Header is the fixed top navigation bar for the app. It handles branding, navigation, and authentication controls using Clerk.
+
+// When this component is used
+// Rendered globally inside the RootLayout, so it appears on every page.
+// Runs server-side because it is declared async and calls checkUser()
+
 import React from "react";
 import {
   SignInButton,
@@ -28,7 +34,7 @@ import {
 import { checkUser } from "@/lib/checkUser";
 
 const Header = async () => {
-  await checkUser();
+  await checkUser(); // ensures session validation, if user not created , creates them for logged in user. 
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
