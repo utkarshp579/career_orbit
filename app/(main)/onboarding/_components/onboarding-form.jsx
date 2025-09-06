@@ -33,7 +33,7 @@ import useFetch from "@/hooks/use-fetch"; // custom react hook
 import { onboardingSchema } from "@/app/lib/schema";
 import { updateUser } from "@/actions/user";
 
-const Onboardingform = () => {
+const Onboardingform = ({industries}) => {
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const router = useRouter();
 
@@ -63,7 +63,7 @@ const Onboardingform = () => {
         ...values,
         industry: formattedIndustry,
       });
-    } catch (error) {
+    } catch (error) { // optional as we already doing it inside usefetch
       console.error("Onboarding error:", error);
     }
   };

@@ -20,6 +20,7 @@ import { dark } from "@clerk/themes"; // for auth theme
 
 import Header from "@/components/Header"; // top navigation
 import { Heart } from "lucide-react";
+import { Toaster } from "sonner";
 
 // Loads Inter font.
 const inter = Inter({
@@ -61,7 +62,7 @@ export default function RootLayout({ children }) {
             {/* header */}
             <Header />
             <main className="min-h-screen">{children}</main>
-
+            <Toaster richColors/>
             <footer className="bg-muted/50 py-12">
               <div className="container mx-auto px-4 text-center text-gray-200">
                 <p className="text-gray-200 text-center">

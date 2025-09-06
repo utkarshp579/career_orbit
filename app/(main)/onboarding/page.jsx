@@ -13,9 +13,10 @@ const onBoardingPage = async () => {
 
   return (
     <main>
-      <Onboardingform industries={industries} /> {/* Making separate Component because this is client component , we use hooks in it , and in onboarding current page we have sent to API req , so making it server side would make it fast */}
+      <Onboardingform industries={industries} />{" "}
+      {/* Making separate Component because this is client component , we use hooks in it , and in onboarding current page we have sent to API req , so making it server side would make it fast */}
     </main>
-  )
+  );
 }
 
 export default onBoardingPage

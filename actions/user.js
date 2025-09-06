@@ -35,12 +35,12 @@ export async function updateUser(data) {
             if (!industryInsight) {
                 industryInsight = await tx.industryInsight.create({
                     data: { // from schema . prisma , we are getting model
-                        indistry: data.industry,
+                        industry: data.industry,
                         salaryRanges: [], // default empty array
                         growthRate: 0,
-                        demandLevel: "Medium", // Default value
+                        demandLevel: "MEDIUM", // Default value
                         topSkills : [],
-                        marketOutlook: "Neutral",
+                        marketOutlook: "NEUTRAL",
                         keyTrends: [],
                         recommendedSkills: [],
                         nextUpdate : new Date(Date.now() + 7 * 24 * 60 *60 *1000), // 1 week from now
@@ -79,7 +79,8 @@ export async function updateUser(data) {
       }
     );
 
-    return result.user;
+    //   return result.user;
+      return { success: true, ...result };
   } catch (error) {
     console.error("Error updating user and industry: ", error.message);
     throw new Error("Failed to update profile");
