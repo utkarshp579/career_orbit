@@ -124,3 +124,7 @@ enum MarketOutlook{
   NEUTRAL 
   NEGATIVE 
 }
+
+// DB FindUnique functio  is used in to check that a data exist in DB or not. 
+
+// create is used to create a db
