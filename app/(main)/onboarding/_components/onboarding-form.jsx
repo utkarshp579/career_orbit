@@ -1,13 +1,19 @@
-"use client";
+// This file defines the Onboarding Form component.
+// It is a client component because it uses React hooks (useState, useEffect, useForm).
+// Its job is to collect user onboarding data (industry, specialization, experience, skills, bio), validate it, and send it to the backend for saving.
+
+// 📌 When is this file used?
+// Displayed inside the Onboarding Page (/onboarding) when the user has not yet completed onboarding.
+// Collects and validates profile info, then updates DB via updateUser.
 
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation"; // navigate programmatically after successful onboarding.
+import { useForm } from "react-hook-form"; // form state management.
+import { zodResolver } from "@hookform/resolvers/zod"; // validate form inputs using Zod schema.
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "sonner"; // show success notifications.
 import {
   Card,
   CardContent,
@@ -29,12 +35,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import useFetch from "@/hooks/use-fetch"; // custom react hook
-import { onboardingSchema } from "@/app/lib/schema";
-import { updateUser } from "@/actions/user";
+import useFetch from "@/hooks/use-fetch"; // custom hook to handle API calls with loading/error state.
+import { onboardingSchema } from "@/app/lib/schema"; // validate form inputs using Zod schema.
+import { updateUser } from "@/actions/user"; // server action to save user onboarding data.
 
-const Onboardingform = ({industries}) => {
-  const [selectedIndustry, setSelectedIndustry] = useState(null);
+const Onboardingform = ({ industries }) => {
+  // Takes one prop:
+  // industries → list of industries with sub-industries (specializations).
+  const [selectedIndustry, setSelectedIndustry] = useState(null); // 👉 Keeps track of the chosen industry so we can later show sub-industries
   const router = useRouter();
 
   const {
@@ -42,6 +50,10 @@ const Onboardingform = ({industries}) => {
     fn: updateUserFn,
     data: updateResult,
   } = useFetch(updateUser);
+  // It gives you back three things:
+  // updateLoading → true/false, tells if the API call is in progress.
+  // updateUserFn → a function you call to actually run the updateUser server action.
+  // updateResult → the data returned from updateUser after it succeeds.
 
   const {
     register,
@@ -51,24 +63,27 @@ const Onboardingform = ({industries}) => {
     watch,
   } = useForm({
     resolver: zodResolver(onboardingSchema),
-  });
+  }); // 👉 Uses Zod schema to validate fields like industry, subIndustry, experience, skills, and bio.
 
   const onSubmit = async (values) => {
     try {
       const formattedIndustry = `${values.industry}-${values.subIndustry
         .toLowerCase()
-        .replace(/ /g, "-")}`;
+        .replace(/ /g, "-")}`; // 👉 Combines industry + specialization into one formatted string.
 
       await updateUserFn({
+        // 👉 Calls the server action updateUser via the custom useFetch hook.
         ...values,
         industry: formattedIndustry,
       });
-    } catch (error) { // optional as we already doing it inside usefetch
+    } catch (error) {
+      // optional as we already doing it inside usefetch
       console.error("Onboarding error:", error);
     }
   };
 
   useEffect(() => {
+    // 👉 When API call succeeds → show success toast → redirect to dashboard.
     if (updateResult?.success && !updateLoading) {
       toast.success("Profile completed successfully!");
       router.push("/dashboard");
@@ -77,6 +92,14 @@ const Onboardingform = ({industries}) => {
   }, [updateResult, updateLoading]);
 
   const watchIndustry = watch("industry");
+
+  // Dynamic form rendering
+  // Dropdown for industry
+  // Once industry is chosen, show dropdown for specialization
+  // Input for experience
+  // Input for skills
+  // Textarea for bio
+  // Submit button(shows spinner while saving)
 
   return (
     <div className="flex items-center justify-center bg-background">
@@ -212,3 +235,18 @@ const Onboardingform = ({industries}) => {
 };
 
 export default Onboardingform;
+
+// 🧩 Flow Summary
+// User visits /onboarding page.
+// Page renders <Onboardingform industries={industries} />.
+// User selects industry → specialization → fills experience, skills, bio.
+// Form validates inputs using Zod schema.
+// On submit → calls updateUser server action.
+//   If success → toast notification + redirect to / dashboard.
+
+// 📝 Revision Questions
+// Why is this component marked as "use client"?
+// What library is used for form validation and what schema powers it?
+// How does the form decide which specializations to show?
+// What happens after updateUser successfully saves data?
+// Why do we use router.refresh() after redirecting to /dashboard?
