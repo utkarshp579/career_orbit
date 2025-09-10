@@ -6,7 +6,7 @@
 import { db } from "@/lib/prisma"; // This is the Prisma client that lets us talk to the database
 import { auth } from "@clerk/nextjs/server"; // This gives us details about the logged-in user (like userId).
 // import { revalidatePath } from "next/cache";
-// import { generateAIInsights } from "./dashboard";
+import { generateAIInsights } from "./dashboard";
 
 export async function updateUser(data) {
   // This function is called when a user submits the onboarding form.
@@ -37,34 +37,36 @@ export async function updateUser(data) {
 
         // If industry doesn't exist, create it with default values , if exist we use it from above.
 
-        if (!industryInsight) {
-          industryInsight = await tx.industryInsight.create({
-            data: {
-              // from schema . prisma , we are getting model
-              industry: data.industry,
-              salaryRanges: [], // default empty array
-              growthRate: 0,
-              demandLevel: "MEDIUM", // Default value
-              topSkills: [],
-              marketOutlook: "NEUTRAL",
-              keyTrends: [],
-              recommendedSkills: [],
-              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
-            },
-          });
-        }
-
         // if (!industryInsight) {
-        //   const insights = await generateAIInsights(data.industry);
-
-        //   industryInsight = await db.industryInsight.create({
+        //   industryInsight = await tx.industryInsight.create({
         //     data: {
+        //       // from schema . prisma , we are getting model
         //       industry: data.industry,
-        //       ...insights,
-        //       nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        //       salaryRanges: [], // default empty array
+        //       growthRate: 0,
+        //       demandLevel: "MEDIUM", // Default value
+        //       topSkills: [],
+        //       marketOutlook: "NEUTRAL",
+        //       keyTrends: [],
+        //       recommendedSkills: [],
+        //       nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
         //     },
         //   });
         // }
+
+        // after getting Insight from AI 
+
+        if (!industryInsight) {
+          const insights = await generateAIInsights(data.industry);
+
+          industryInsight = await db.industryInsight.create({
+            data: {
+              industry: data.industry,
+              ...insights,
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            },
+          });
+        }
         // Now update the user
         const updatedUser = await tx.user.update({
           // 👉 Saves onboarding form values into the user’s record.
