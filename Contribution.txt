@@ -1,0 +1,88 @@
+🚀 Steps to Contribute to an Open Source Repo (Fork → Fix → PR)
+1. Fork the Repository
+
+Go to the original repo (example: piyush-eon/ai-career-coach).
+
+Click Fork → creates a copy under your account (utkarshp579/ai-career-coach).
+
+2. Clone Your Fork
+git clone https://github.com/utkarshp579/ai-career-coach.git
+cd ai-career-coach
+
+3. Set Upstream Remote (only once)
+git remote add upstream https://github.com/piyush-eon/ai-career-coach.git
+git remote -v
+
+
+origin → your fork
+
+upstream → original repo
+
+4. Sync Your Fork with Upstream
+
+Before starting new work, always update:
+
+git checkout master
+git fetch upstream
+git merge upstream/master
+git push origin master
+
+5. Create a New Branch
+
+Always make changes in a separate branch:
+
+git checkout -b fix/enum-value-case
+
+
+(Branch name format: fix/..., feat/..., docs/... etc.)
+
+6. Make Your Changes
+
+Update code, fix bugs, or add features.
+
+In this case: fixed enum values (DemandLevel, MarketOutlook) to uppercase.
+
+7. Stage & Commit
+git add .
+git commit -m "fix: align enum values to uppercase (DemandLevel, MarketOutlook)"
+
+8. Push Your Branch to Fork
+git push origin fix/enum-value-case
+
+9. Open a Pull Request
+
+Go to your fork on GitHub.
+
+Click Compare & pull request.
+
+Set:
+
+Base repo = piyush-eon/ai-career-coach
+
+Base branch = master
+
+Compare = fix/enum-value-case
+
+Add a title (short, conventional commit style) and description (explain problem → solution → impact).
+
+Example Title:
+
+fix: align enum values to uppercase (DemandLevel, MarketOutlook)
+
+10. Wait for Review
+
+Maintainer reviews and merges.
+
+If deployment checks (like Vercel) fail due to authorization, ignore — that’s for repo maintainers.
+
+11. (Optional) Keep Fork Updated
+
+When new changes are merged in upstream:
+
+git checkout master
+git fetch upstream
+git merge upstream/master
+git push origin master
+
+
+✅ That’s the full loop: Fork → Clone → Upstream → Sync → Branch → Fix → Commit → Push → PR → Review → Merge.
