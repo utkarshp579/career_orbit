@@ -92,7 +92,7 @@ Base branch: master
 
 Compare: your new branch.
 
-### 10. Write a Good PR
+### l. Write a Good PR
 Title:
 
 vbnet
