@@ -1,7 +1,13 @@
+/*
+DashboardView is a React functional component designed to display market insights, industry growth, salary ranges, demand level, and skills in a dashboard layout.
+It leverages UI components, charts, and utility libraries to present insights in a structured and interactive way.
+*/
+
+
 "use client";
 
 import React from "react";
-import { format, formatDistanceToNow } from "date-fns"; // ! Library Used
+import { format, formatDistanceToNow } from "date-fns"; // ! Library Used :- For formatting dates
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -19,7 +25,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts"; // ! Library Used
+} from "recharts"; // ! Library Used :- For rendering salary bar chart
 import {
   BriefcaseIcon,
   LineChart,
