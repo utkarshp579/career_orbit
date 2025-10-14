@@ -54,7 +54,7 @@ export async function updateUser(data) {
         //   });
         // }
 
-        // after getting Insight from AI 
+        // after getting Insight from AI
 
         if (!industryInsight) {
           const insights = await generateAIInsights(data.industry);
@@ -67,6 +67,7 @@ export async function updateUser(data) {
             },
           });
         }
+
         // Now update the user
         const updatedUser = await tx.user.update({
           // 👉 Saves onboarding form values into the user’s record.
@@ -91,6 +92,8 @@ export async function updateUser(data) {
     //   return result.user;
     return { success: true, ...result };
   } catch (error) {
+    console.error("Error updating user and industry: ", error.message); // * debugging 
+
     console.error("Error updating user and industry: ", error.message);
     throw new Error("Failed to update profile");
   }
@@ -131,19 +134,17 @@ export async function getUserOnboardingStatus() {
   }
 }
 
-
 // Flow Summary
-    // User signs in (via Clerk).
-    // Goes to onboarding page → system checks if they’re onboarded.
-    // If yes → redirect to /dashboard.
-    // If no → show onboarding form.
-    // On submit → updateUser updates user + industry insights.
+// User signs in (via Clerk).
+// Goes to onboarding page → system checks if they’re onboarded.
+// If yes → redirect to /dashboard.
+// If no → show onboarding form.
+// On submit → updateUser updates user + industry insights.
 // Next login → user is redirected straight to dashboard.
-    
 
 // Revision Questions
-  // What does auth() return, and why do we use it first?
-  // Why do we use a transaction (db.$transaction) when updating user and industry?
-  // What happens if the industry doesn’t already exist in the database?
-  // How does getUserOnboardingStatus decide if a user is onboarded?
-  // From where are db and auth imported?
+// What does auth() return, and why do we use it first?
+// Why do we use a transaction (db.$transaction) when updating user and industry?
+// What happens if the industry doesn’t already exist in the database?
+// How does getUserOnboardingStatus decide if a user is onboarded?
+// From where are db and auth imported?
