@@ -3,6 +3,7 @@
 // In production, you configure Inngest to send events here.
 
 import { inngest } from "@/lib/inngest/client"; //nngest client that we've configured
+import { generateIndustryInsights } from "@/lib/inngest/function";
 // import { helloWorld } from "@/lib/inngest/function";
 import { serve } from "inngest/next"; //Wraps functions into a Next.js API route with handlers
 
@@ -12,6 +13,7 @@ export const { GET, POST, PUT } = serve({
   functions: [
     /* your functions will be passed here later! */
     // helloWorld, 
+    generateIndustryInsights
   ],
 });
 
